@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1665304554 source:d:\rab\study\c\hwoop8\main.cpp
+	<iostream>
+	<cmath>
+	<windows.h>
+	<chrono>
+
