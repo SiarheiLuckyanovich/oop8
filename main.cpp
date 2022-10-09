@@ -96,9 +96,9 @@ const char* getError() { return m_error.c_str(); }
 class robot
 {
 public:
-const size_t SIZE {10U };
+static const size_t SIZE = 10;
 char m;
-int Field [10U][10U];
+int Field [SIZE][SIZE];
 int* ppField = new int ;
 int r_x = 4;
 int r_y = 4;
@@ -118,11 +118,11 @@ int r_y = 4;
     void printField()
     {
         SetColor( 13, 0);
-        cout << "   ---====<<";
+        cout << " -=<<";
         SetColor( 12, 0);
         cout << "Move the robot!";
         SetColor( 13, 0);
-        cout << " >>===---";
+        cout << " >>=-";
         cout << endl;
         cout << "       " ;
         for (size_t x = 0; x < SIZE; x++)
@@ -151,8 +151,8 @@ int r_y = 4;
     }
     void getRobotCoord()
     {
-        int x = r_x;
-        int y = r_y;
+        size_t x = r_x;
+        size_t y = r_y;
             SetColor( 10, 0);
             cout << "  Move! ";
             SetColor( 9, 0);
