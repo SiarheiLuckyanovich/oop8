@@ -75,31 +75,51 @@ void SetColor(int text, int background)
    HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
    SetConsoleTextAttribute(hStdOut, (WORD)((background << 4) | text));
 }
+//============================================================================================================
+class OffTheField
+{
+private:
+string m_error;
+public:
+OffTheField(string error) : m_error(error)
+{ }
+const char* getError() { return m_error.c_str(); }
+};
+//============================================================================================================
+class IllegalCommand
+{
+string m_error;
+public:
+IllegalCommand (string error) : m_error(error)
+{ }
+const char* getError() { return m_error.c_str(); }
+};
+//============================================================================================================
 class robot
 {
 public:
 const size_t SIZE {10U };
-char CROSS = 'X';
-char EMPTY = '_';
 char m;
-int ppField [9][9]{};
+int Field [9][9];
+int* ppField = new int ;
 int r_x = 4;
 int r_y = 4;
 
-    ~robot(){}
     robot (){}
-    void __fastcall emptyField ()
+    ~robot(){}
+    void  emptyField ()
     {
 
         for (size_t y = 0; y < SIZE; y++)
         {
             for (size_t x = 0; x < SIZE; x++)
             {
-                ppField [y][x] = ' ';
+                Field [y][x] = ' ';
             }
         }
     }
-    void __fastcall printField()
+
+    void printField()
     {
         SetColor( 13, 0);
         cout << "   ---====<<";
@@ -124,48 +144,61 @@ int r_y = 4;
             for (size_t x = 0; x < SIZE; x++)
             {
                 SetColor( 7, 0);
-                cout << static_cast <char> (ppField [y][x]) << " | ";
+                cout << static_cast <char> (Field [y][x]) << " | ";
             }
             cout << endl;
             cout << endl;
         }
         SetColor( 3, 0);
-        cout << endl << "   Robot: ";
+        cout << endl << "Robot coord X = " << r_y << ", Y = " << r_x;;
     }
-    void __fastcall getRobotCoord()
+    void getRobotCoord()
     {
+        int x = r_x;
+        int y = r_y;
 
-            SetColor( 15, 0);
+            SetColor( 10, 0);
             cout << "  Move! " << endl;
-            SetColor( 2, 0);
+            SetColor( 9, 0);
             cout << "   Enter the way (UP-W, DOWN-S, LEFT-A, RIGHT-D): ";
             cin >> m;
+            if ( m != 'w' && m != 's' && m != 'd' && m != 'a' && m != 'W' && m != 'S' && m != 'D' && m != 'A')
+            {
+                throw IllegalCommand (" Error: wrong way.");
+            }
             if (m == 'w' || m == 'W')
             {
-                r_y --;
+                y --;
             }
             if (m == 'd' || m == 'D')
             {
-                r_x ++;
+                x ++;
             }
             if (m == 's' || m == 'S')
             {
-                r_y ++;
+                y ++;
             }
             if (m == 'a' || m == 'A')
             {
-                r_x --;
+                x --;
             }
 
-           // ppField[r_y][r_x] = CROSS;
-             cout << " X = " << r_y << " Y = " << r_x;
-            //return (r_x, r_y);
+            if ( y > 9 || y <0 || x > 9 || x <0 )
+            {
+
+                throw OffTheField (" Error: The robot cannot leave the Field");
+            }
+            else
+            {
+                //Field[r_y][r_x] = 'X';
+                SetColor( 11, 0);
+                r_y = y; r_x = x;
+                cout << "Robot coord X = " << r_y << ", Y = " << r_x << endl;
+            }
+            //cout << "Robot coord X = " << r_y << ", Y = " << r_x << endl;
     }
-
 };
-//=========================================================================
 
-//=========================================================================
 //============================================================================================================
 int main()
 {
@@ -186,8 +219,8 @@ int main()
 cout << endl;
 //============================================================================================================
 //============================================================================================================
-cout << "2st task: DivisionByZero" << endl;
-    cout << "Enter a numbers A & B: ";
+cout << "2st task: Ex & Bar " << endl;
+cout << endl;
 Bar y;
 int n;
 do
@@ -209,21 +242,39 @@ cout << endl;*/
 //============================================================================================================
 cout << "3st task: Robot" << endl;
 robot r;
-system("cls");
+//system("cls");
 char answ = 'y';
-cout << " " << r.r_y << " " << r.r_x;
+
 do
 {
-    system("cls");
-    cout << " " << r.r_y << " " << r.r_x;
+    try
+    {
+        SetColor( 11, 0);
+        system("cls");
+        cout << "Robot coord X = " << r.r_y << ", Y = " << r.r_x;
+        r.&emptyField();
+        //r.printField();
+        r.getRobotCoord();
+        //system("cls");
+        r.printField();
+    }
+    catch (const OffTheField& off)
+    {
+        SetColor( 4, 0);
+        cerr << " Error: The robot cannot leave the Field " << endl;
+    }
+    catch (const IllegalCommand& ill)
+    {
+        SetColor( 4, 0);
+        cerr << " Error: wrong way." << endl;
+    }
 
-    r.emptyField();
-    r.printField();
-    r.getRobotCoord();
-    //r.printField();
-    //cout << "Do you wanna next move? (say yes): ";
-    //cin >> answ;
-} while (answ == 'y');
+
+
+    SetColor( 15, 0);
+    cout << "Do you wanna next move? (say yes): ";
+    cin >> answ;
+} while ( answ == 'y' );
 
 
 
