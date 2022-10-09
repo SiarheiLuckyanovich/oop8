@@ -98,7 +98,7 @@ class robot
 public:
 const size_t SIZE {10U };
 char m;
-int Field [9][9];
+int Field [10][10];
 int* ppField = new int ;
 int r_x = 4;
 int r_y = 4;
@@ -143,12 +143,13 @@ int r_y = 4;
             {
                 SetColor( 7, 0);
                 cout << static_cast <char> (Field [y][x]) << " | ";
+                Field[r_y][r_x] = 'X';
             }
             cout << endl;
             cout << endl;
         }
         SetColor( 3, 0);
-        cout << endl << "Robot coord X = " << r_y << ", Y = " << r_x;;
+        cout << endl << "Robot coord X = " << r_y + 1 << ", Y = " << r_x + 1 << endl;;
     }
     void getRobotCoord()
     {
@@ -156,7 +157,7 @@ int r_y = 4;
         int y = r_y;
 
             SetColor( 10, 0);
-            cout << "  Move! " << endl;
+            cout << "  Move! ";
             SetColor( 9, 0);
             cout << "   Enter the way (UP-W, DOWN-S, LEFT-A, RIGHT-D): ";
             cin >> m;
@@ -180,16 +181,17 @@ int r_y = 4;
             {
                 x --;
             }
-            if ( y > 9 || y <0 || x > 9 || x <0 )
+            if ( y > SIZE - 1 || y < 0 || x > SIZE - 1 || x < 0 )
             {
                 throw OffTheField (" Error: The robot cannot leave the Field");
             }
             else
             {
-                //Field[r_y][r_x] = 'X';
+
                 SetColor( 11, 0);
                 r_y = y; r_x = x;
-                cout << "Robot coord X = " << r_y << ", Y = " << r_x << endl;
+                //Field[r_y][r_x] = 'X';
+                cout << "Robot coord X = " << r_y + 1 << ", Y = " << r_x + 1 ;
             }
     }
 };
@@ -198,7 +200,7 @@ int r_y = 4;
 int main()
 {
 //============================================================================================================
-cout << "1st task: Ex" << endl;
+/*cout << "1st task: Ex" << endl;
     cout << "Enter a numbers A & B: ";
     double a, b;
     cin >> a >> b;
@@ -232,43 +234,45 @@ do
     }
 } while (n != 0);
 
-cout << endl;
+cout << endl;*/
 //============================================================================================================
 //============================================================================================================
 cout << "3st task: Robot" << endl;
 robot r;
 //system("cls");
 char answ = 'y';
-
+r.emptyField();
 do
 {
     try
     {
         SetColor( 11, 0);
         system("cls");
-        cout << "Robot coord X = " << r.r_y << ", Y = " << r.r_x;
-        //r.emptyField();
-        //r.printField();
+        cout << "Robot coord X = " << r.r_y + 1 << ", Y = " << r.r_x + 1 ;
+        r.printField();
+        r.emptyField();
         r.getRobotCoord();
-        //system("cls");
-        //r.printField();
+        system("cls");
+        r.printField();
     }
     catch (const OffTheField& off)
     {
         SetColor( 4, 0);
         cerr << " Error: The robot cannot leave the Field " << endl;
+         system("pause");
     }
     catch (const IllegalCommand& ill)
     {
         SetColor( 4, 0);
         cerr << " Error: wrong way." << endl;
+         system("pause");
     }
 
 
 
     SetColor( 15, 0);
     cout << "Do you wanna next move? (say yes): ";
-    cin >> answ;
+    //cin >> answ;
 } while ( answ == 'y' );
 
 
