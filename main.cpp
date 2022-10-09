@@ -86,7 +86,7 @@ int ppField [9][9]{};
 int r_x = 4;
 int r_y = 4;
 
-
+    ~robot(){}
     robot (){}
     void __fastcall emptyField ()
     {
@@ -134,8 +134,6 @@ int r_y = 4;
     }
     void __fastcall getRobotCoord()
     {
-        int r_x = 4;
-        int r_y = 4;
 
             SetColor( 15, 0);
             cout << "  Move! " << endl;
@@ -160,7 +158,7 @@ int r_y = 4;
             }
 
            // ppField[r_y][r_x] = CROSS;
-             cout << " " << r_y << " " << r_x;
+             cout << " X = " << r_y << " Y = " << r_x;
             //return (r_x, r_y);
     }
 
@@ -172,7 +170,7 @@ int r_y = 4;
 int main()
 {
 //============================================================================================================
-cout << "1st task: Ex" << endl;
+/*cout << "1st task: Ex" << endl;
     cout << "Enter a numbers A & B: ";
     double a, b;
     cin >> a >> b;
@@ -206,7 +204,7 @@ do
     }
 } while (n != 0);
 
-cout << endl;
+cout << endl;*/
 //============================================================================================================
 //============================================================================================================
 cout << "3st task: Robot" << endl;
@@ -214,12 +212,12 @@ robot r;
 system("cls");
 char answ = 'y';
 cout << " " << r.r_y << " " << r.r_x;
-//r.emptyField();
-//r.printField();
 do
 {
-    //cout << " " << r.r_y << " " << r.r_x;
-    //system("cls");
+    system("cls");
+    cout << " " << r.r_y << " " << r.r_x;
+
+    r.emptyField();
     r.printField();
     r.getRobotCoord();
     //r.printField();
