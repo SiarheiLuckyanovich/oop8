@@ -98,16 +98,14 @@ class robot
 public:
 const size_t SIZE {10U };
 char m;
-int Field [10][10];
+int Field [10U][10U];
 int* ppField = new int ;
 int r_x = 4;
 int r_y = 4;
-
     robot (){}
     ~robot(){}
     void  emptyField ()
     {
-
         for (size_t y = 0; y < SIZE; y++)
         {
             for (size_t x = 0; x < SIZE; x++)
@@ -155,7 +153,6 @@ int r_y = 4;
     {
         int x = r_x;
         int y = r_y;
-
             SetColor( 10, 0);
             cout << "  Move! ";
             SetColor( 9, 0);
@@ -187,10 +184,8 @@ int r_y = 4;
             }
             else
             {
-
                 SetColor( 11, 0);
                 r_y = y; r_x = x;
-                //Field[r_y][r_x] = 'X';
                 cout << "Robot coord X = " << r_y + 1 << ", Y = " << r_x + 1 ;
             }
     }
@@ -200,7 +195,7 @@ int r_y = 4;
 int main()
 {
 //============================================================================================================
-/*cout << "1st task: Ex" << endl;
+cout << "1st task: Ex" << endl;
     cout << "Enter a numbers A & B: ";
     double a, b;
     cin >> a >> b;
@@ -214,7 +209,6 @@ int main()
         cerr << "Error: " << exception << endl;
     }
 cout << endl;
-//============================================================================================================
 //============================================================================================================
 cout << "2st task: Ex & Bar " << endl;
 cout << endl;
@@ -234,8 +228,7 @@ do
     }
 } while (n != 0);
 
-cout << endl;*/
-//============================================================================================================
+cout << endl;
 //============================================================================================================
 cout << "3st task: Robot" << endl;
 robot r;
