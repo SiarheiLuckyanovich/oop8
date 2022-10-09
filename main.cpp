@@ -20,8 +20,6 @@ template <class X> double div(X &a, X &b)
         return (a / b);
     }
 }
-
-
 //============================================================================================================
 /*2. Написать класс Ex, хранящий вещественное число x и имеющий конструктор по вещественному числу,
  инициализирующий x значением параметра. Написать класс Bar,
@@ -182,10 +180,8 @@ int r_y = 4;
             {
                 x --;
             }
-
             if ( y > 9 || y <0 || x > 9 || x <0 )
             {
-
                 throw OffTheField (" Error: The robot cannot leave the Field");
             }
             else
@@ -195,7 +191,6 @@ int r_y = 4;
                 r_y = y; r_x = x;
                 cout << "Robot coord X = " << r_y << ", Y = " << r_x << endl;
             }
-            //cout << "Robot coord X = " << r_y << ", Y = " << r_x << endl;
     }
 };
 
@@ -203,7 +198,7 @@ int r_y = 4;
 int main()
 {
 //============================================================================================================
-/*cout << "1st task: Ex" << endl;
+cout << "1st task: Ex" << endl;
     cout << "Enter a numbers A & B: ";
     double a, b;
     cin >> a >> b;
@@ -237,7 +232,7 @@ do
     }
 } while (n != 0);
 
-cout << endl;*/
+cout << endl;
 //============================================================================================================
 //============================================================================================================
 cout << "3st task: Robot" << endl;
@@ -252,11 +247,11 @@ do
         SetColor( 11, 0);
         system("cls");
         cout << "Robot coord X = " << r.r_y << ", Y = " << r.r_x;
-        r.&emptyField();
+        //r.emptyField();
         //r.printField();
         r.getRobotCoord();
         //system("cls");
-        r.printField();
+        //r.printField();
     }
     catch (const OffTheField& off)
     {
